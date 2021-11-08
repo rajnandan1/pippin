@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pippin</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	 
+</head>
+
+<body>
+	<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+	<div class="abs-center">
+		<button class="button-36" id="pippin-sample" role="button">Pay for second breakfast</button>
+		<p id='response'></p>
+	</div>
+
+	<script src="dist/pippin.min.js"></script>
+	<script>
+		const successCallback = function (data) {
+			console.log(data);
+			document.getElementById("response").innerHTML = "<pre><b>Success Response</b><br>" + JSON.stringify(data, null, 2) + "</pre>";
+		}
+		const failureCallback = function (data) {
+			console.log(data);
+			document.getElementById("response").innerHTML = "<pre><b>Failure Response</b><br>" + JSON.stringify(data, null, 2) + "</pre>";
+		}
+		const orderToken = "gbJgZ5ydScqlyhUmZNmZ";
+		const env = "sandbox"; //or production
+		document.getElementById('pippin-sample').addEventListener('click', () => {
+			Pippin(env, orderToken, successCallback, failureCallback);
+		});
+	</script>
+</body>
+
+</html>
