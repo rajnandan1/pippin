@@ -12,7 +12,7 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
-	 
+
 </head>
 
 <body>
@@ -20,6 +20,21 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 	<div class="abs-center">
+		<form action="">
+			<label class="form-control">
+				<input type="radio" name="radio" value="production" />
+				Production
+			</label>
+
+			<label class="form-control">
+				<input type="radio" name="radio" checked value="sandbox" />
+				Sandbox
+			</label>
+		</form>
+		<div class="text-input">
+			<input type="text" id="input1" placeholder="order_token">
+			<label for="input1">Token</label>
+		</div>
 		<button class="button-36" id="pippin-sample" role="button">Pay for second breakfast</button>
 		<p id='response'></p>
 	</div>
@@ -28,15 +43,30 @@
 	<script>
 		const successCallback = function (data) {
 			console.log(data);
-			document.getElementById("response").innerHTML = "<pre><b>Success Response</b><br>" + JSON.stringify(data, null, 2) + "</pre>";
+			document.getElementById("response").innerHTML = "<pre><b>Success Response</b><br>" + JSON.stringify(data,
+				null, 2) + "</pre>";
 		}
 		const failureCallback = function (data) {
 			console.log(data);
-			document.getElementById("response").innerHTML = "<pre><b>Failure Response</b><br>" + JSON.stringify(data, null, 2) + "</pre>";
+			document.getElementById("response").innerHTML = "<pre><b>Failure Response</b><br>" + JSON.stringify(data,
+				null, 2) + "</pre>";
 		}
-		const orderToken = "gbJgZ5ydScqlyhUmZNmZ";
-		const env = "sandbox"; //or production
+		let orderToken = "";
+		let env = "sandbox"; //or production
+		var rates = document.getElementsByName('radio');
+
 		document.getElementById('pippin-sample').addEventListener('click', () => {
+			orderToken = document.getElementById("input1").value.trim();
+			if (orderToken == "") {
+				alert("Order token empty")
+				return;
+			}
+			for (var i = 0; i < rates.length; i++) {
+				if (rates[i].checked) {
+					env = rates[i].value;
+				}
+			}
+			console.log(env);
 			Pippin(env, orderToken, successCallback, failureCallback);
 		});
 	</script>
