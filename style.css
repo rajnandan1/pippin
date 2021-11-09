@@ -33,8 +33,6 @@
 	touch-action: manipulation;
 
 }
-<!-- HTML !-->
-<button class="button-60" role="button">Button 60</button>
 
 /* CSS */
 .button-60 {
@@ -244,6 +242,7 @@
 	padding-left: 0px;
 	padding-bottom: 0px;
 	margin-top: 15px;
+	display: none;
 }
 
 .text-input input[type=text]:focus {

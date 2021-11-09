@@ -101,7 +101,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
         onFailure: (data) => {
             modalx.close();
             this.failurecb(data);
-        },
+        }
     };
 
     modalx.setStyle({
