@@ -39,7 +39,7 @@
 		<p id='response'></p>
 	</div>
 
-	<script src="dist/pippin.min.js"></script>
+	<script src="dist/1.0.0/pippin.js"></script>
 	<script>
 		const successCallback = function (data) {
 			console.log(data);
@@ -61,7 +61,7 @@
 				alert("Order token empty")
 				return;
 			}
-			 
+			
 			Pippin(env, orderToken, successCallback, failureCallback);
 		});
 	</script>

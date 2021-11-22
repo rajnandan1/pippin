@@ -10,6 +10,9 @@ const Pippin = async function (env, token, successcb, failurecb) {
     };
     this.replaceJS = function (filePathToJSScript) {
         return new Promise((resolve, reject) => {
+			if(document.getElementById("hljs")){
+				resolve(1)
+			}
             var list = document.getElementsByTagName("script");
             var i = list.length,
                 flag = false;
@@ -22,6 +25,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
 
             if (!flag) {
                 var tag = document.createElement("script");
+				 
                 tag.src = filePathToJSScript;
                 tag.setAttribute("id", "hljs");
                 document.getElementsByTagName("head")[0].appendChild(tag);
@@ -50,13 +54,8 @@ const Pippin = async function (env, token, successcb, failurecb) {
             "https://sdk.cashfree.com/js/ui/1.0.3/dropinClient.sandbox.js?v=" + Date.now()
         );
     }
-
-    let win = window,
-        doc = document,
-        docElem = doc.documentElement,
-        body = doc.getElementsByTagName("body")[0],
-        x = win.innerWidth || docElem.clientWidth || body.clientWidth,
-        y = win.innerHeight || docElem.clientHeight || body.clientHeight;
+	 
+    
 
     var cx = document.getElementsByClassName("cfgandalf");
     for (let i = 0; i < cx.length; i++) {
@@ -73,13 +72,14 @@ const Pippin = async function (env, token, successcb, failurecb) {
 	modal.style.height = "100%";
     content.append(modal);
     theDiv.appendChild(content);
+	
     const modalx = new Pippin.Laugh({
         target: content,
         data: {
             style: {
                 coverBackgroundColor: "rgba(0,0,0,.4)",
                 borderRadius: "6px",
-                width: x > 420 ? "420px" : "100%",
+                width:  "100%",
             },
         },
     });
@@ -247,7 +247,7 @@ Pippin.Laugh = (function () {
             data() {
                 return {
                     defaultStyle: {
-                        height: "70vh",
+                        height: "50vh",
                         width: "70%",
                         coverBackgroundColor: "rgba(0,0,0,.4)",
                         backgroundColor: "#222",
@@ -354,9 +354,15 @@ Pippin.Laugh = (function () {
     let addedCss = false;
 
     function addCss() {
+		let win = window,
+        doc = document,
+        docElem = doc.documentElement,
+        body = doc.getElementsByTagName("body")[0],
+        x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+        y = win.innerHeight || docElem.clientHeight || body.clientHeight;
         var style = createElement("style");
         style.textContent =
-            "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n    position: fixed;\n    z-index: 2;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: 100%;\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 1em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
+            "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n    position: fixed;\n    z-index: 4;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: "+(x > 420 ? "420px": "100%")+";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 1em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
         appendNode(style, document.head);
 
         addedCss = true;
