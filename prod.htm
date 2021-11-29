@@ -39,7 +39,7 @@
 		<p id='response'></p>
 	</div>
 
-	<script src="dist/1.0.0/pippin.js"></script>
+	
 	<script>
 		const successCallback = function (data) {
 			console.log(data);
@@ -64,6 +64,18 @@
 			 
 			Pippin(env, orderToken, successCallback, failureCallback);
 		});
+	</script>
+	<script>
+    "use strict";
+    !function () {
+      if (!window.Pippin) {
+		  alert(1)
+         var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://sdk.cashfree.com/js/pippin/1.0.0/pippin.min.js?v=" + n;
+            var i = document.getElementsByTagName("script")[0];
+            i.parentNode.insertBefore(o, i);
+      }
+    }();
 	</script>
 </body>
 
