@@ -10,7 +10,7 @@
 ## Code
 
 ### Include script
-```<script  src="dist/pippin.min.js"></script>```
+```<script  src="https://sdk.cashfree.com/js/pippin/1.0.0/pippin.min.js"></script>```
 
 or
 ### use the below script inside a `<script>` tag
