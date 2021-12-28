@@ -47,11 +47,11 @@ const Pippin = async function (env, token, successcb, failurecb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.3/dropinClient.prod.js?v=" + Date.now()
+            "https://sdk.cashfree.com/js/ui/1.0.4/dropinClient.prod.js?v=" + Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.3/dropinClient.sandbox.js?v=" + Date.now()
+            "https://sdk.cashfree.com/js/ui/1.0.4/dropinClient.sandbox.js?v=" + Date.now()
         );
     }
 	 
@@ -72,7 +72,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
 	modal.style.height = "100%";
     content.append(modal);
     theDiv.appendChild(content);
-	
+
     const modalx = new Pippin.Laugh({
         target: content,
         data: {
@@ -87,11 +87,10 @@ const Pippin = async function (env, token, successcb, failurecb) {
         components: [
             "order-details",
             "card",
-            "netbanking",
-            "app",
             "upi-collect",
             "upi-intent",
-            "upi-qrcode",
+            "app",
+            "netbanking",
         ],
         orderToken: token,
         onSuccess: (data) => {
@@ -101,7 +100,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
         onFailure: (data) => {
             modalx.close();
             this.failurecb(data);
-        }
+        },
     };
 
     modalx.setStyle({
@@ -132,9 +131,7 @@ Pippin.Laugh = (function () {
         return document.createElement(name);
     }
 
-    function createSvgElement(name) {
-        return document.createElementNS("http://www.w3.org/2000/svg", name);
-    }
+    
 
     function createText(data) {
         return document.createTextNode(data);
@@ -364,17 +361,16 @@ Pippin.Laugh = (function () {
 		let isMobile =  x <= 420;
 		if (isMobile){
 			style.textContent =
-                "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n    position: fixed;\n    z-index: 4;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: " +
+                "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n   height:100% !important; \n position: fixed;\n    z-index: 4;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: " +
                 "100%" +
-                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 1em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
+                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n  height:100% !important;\n  -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 0em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
 		} else {
 			 
 			style.textContent =
                 "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n    position: fixed;\n    z-index: 4;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n      border-radius: 6px;\n      transform: translate(-50%, -50%);\n    width: " +
                 "420px" +
-                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 1em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
+                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 0em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
 		
-			console.log(style.textContent);
 		}
         
         appendNode(style, document.head);
@@ -497,28 +493,7 @@ Pippin.Laugh = (function () {
 
         appendNode(div2, div1);
 
-        var svg = createSvgElement("svg");
-        setAttribute(svg, "svelte-2241516264", "");
-        setAttribute(svg, "class", "pippin decorate left-bottom");
-        setAttribute(svg, "viewBox", "0 0 11 15");
-        setAttribute(svg, "version", "1.1");
-        setAttribute(svg, "xmlns", "http://www.w3.org/2000/svg");
-        setAttribute(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
-        setAttribute(svg, "xml:space", "preserve");
-        setAttribute(svg, "style", "fill: " + root.style.backgroundColor + ";");
-
-        appendNode(svg, div2);
-
-        var path = createSvgElement("path");
-        setAttribute(path, "svelte-2241516264", "");
-        setAttribute(
-            path,
-            "d",
-            "M10.245,0c0.252,10.778 -3.826,15.272 -10.245,14.98l10.245,0l0,-14.98Z"
-        );
-
-        appendNode(path, svg);
-        appendNode(createText("\n      "), div2);
+        
 
         var div3 = createElement("div");
         setAttribute(div3, "svelte-2241516264", "");
@@ -528,33 +503,7 @@ Pippin.Laugh = (function () {
             "\n        opacity: " + (root.__active ? 1 : 0) + ";\n      ";
 
         appendNode(div3, div2);
-        appendNode(createText("\n      "), div2);
-
-        var svg1 = createSvgElement("svg");
-        setAttribute(svg1, "svelte-2241516264", "");
-        setAttribute(svg1, "class", "pippin decorate right-bottom");
-        setAttribute(svg1, "viewBox", "0 0 11 15");
-        setAttribute(svg1, "version", "1.1");
-        setAttribute(svg1, "xmlns", "http://www.w3.org/2000/svg");
-        setAttribute(svg1, "xmlns:xlink", "http://www.w3.org/1999/xlink");
-        setAttribute(svg1, "xml:space", "preserve");
-        setAttribute(
-            svg1,
-            "style",
-            "fill: " + root.style.backgroundColor + ";"
-        );
-
-        appendNode(svg1, div2);
-
-        var path1 = createSvgElement("path");
-        setAttribute(path1, "svelte-2241516264", "");
-        setAttribute(
-            path1,
-            "d",
-            "M10.245,0c0.252,10.778 -3.826,15.272 -10.245,14.98l10.245,0l0,-14.98Z"
-        );
-
-        appendNode(path1, svg1);
+        
 
         return {
             mount: function (target, anchor) {
@@ -617,22 +566,14 @@ Pippin.Laugh = (function () {
                     root.style.borderRadius +
                     ";\n    ";
 
-                setAttribute(
-                    svg,
-                    "style",
-                    "fill: " + root.style.backgroundColor + ";"
-                );
+                
 
                 div3.style.cssText =
                     "\n        opacity: " +
                     (root.__active ? 1 : 0) +
                     ";\n      ";
 
-                setAttribute(
-                    svg1,
-                    "style",
-                    "fill: " + root.style.backgroundColor + ";"
-                );
+                
             },
 
             teardown: function (detach) {
