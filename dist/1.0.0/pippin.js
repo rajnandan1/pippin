@@ -1,3 +1,4 @@
+
 const Pippin = async function (env, token, successcb, failurecb) {
     this.uuid = function () {
         var dt = new Date().getTime();
@@ -10,9 +11,9 @@ const Pippin = async function (env, token, successcb, failurecb) {
     };
     this.replaceJS = function (filePathToJSScript) {
         return new Promise((resolve, reject) => {
-			if(document.getElementById("hljs")){
-				resolve(1)
-			}
+            if (document.getElementById("hljs")) {
+                resolve(1);
+            }
             var list = document.getElementsByTagName("script");
             var i = list.length,
                 flag = false;
@@ -25,7 +26,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
 
             if (!flag) {
                 var tag = document.createElement("script");
-				 
+
                 tag.src = filePathToJSScript;
                 tag.setAttribute("id", "hljs");
                 document.getElementsByTagName("head")[0].appendChild(tag);
@@ -47,15 +48,15 @@ const Pippin = async function (env, token, successcb, failurecb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.5/dropinClient.prod.js?v=" + Date.now()
+            "https://sdk.cashfree.com/js/ui/1.0.5/dropinClient.prod.js?v=" +
+                Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.5/dropinClient.sandbox.js?v=" + Date.now()
+            "https://sdk.cashfree.com/js/ui/1.0.5/dropinClient.sandbox.js?v=" +
+                Date.now()
         );
     }
-	 
-    
 
     var cx = document.getElementsByClassName("cfgandalf");
     for (let i = 0; i < cx.length; i++) {
@@ -67,19 +68,41 @@ const Pippin = async function (env, token, successcb, failurecb) {
     let content = document.createElement("div");
     content.setAttribute("id", this.this_ID);
     content.classList.add("cfgandalf");
+
     let modal = document.createElement("div");
     modal.setAttribute("id", this.this_ID_IN);
-	modal.style.height = "100%";
+    modal.style.height = "100%";
+
+	if (Pippin.isMobile()){
+		let closeBar = document.createElement("div");
+        closeBar.classList.add("close-bar");
+        closeBar.innerHTML =
+            "<div style='height:5px; width:40%;display:inline-block;background-color:#D1D9D9;position: absolute;top: 8px; left: 50%; transform: translateX(-50%); border-radius: 5px;'></div>";
+        closeBar.style.height = "20px";
+        closeBar.setAttribute("id", "close-bar" + this.this_ID_IN);
+        modal.append(closeBar);
+	}
+    
+
     content.append(modal);
     theDiv.appendChild(content);
-
+	if (document.getElementById("close-bar" + this.this_ID_IN)) {
+        Pippin.addSwipeEvent(
+            document.getElementById("close-bar" + this.this_ID_IN),
+            "swipeDown",
+            function () {
+                modalx.close();
+            }
+        );
+    }
+	
     const modalx = new Pippin.Laugh({
         target: content,
         data: {
             style: {
                 coverBackgroundColor: "rgba(0,0,0,.4)",
-                borderRadius: "0px",
-                width:  "100%",
+                borderRadius: "20px",
+                width: "100%",
             },
         },
     });
@@ -130,8 +153,6 @@ Pippin.Laugh = (function () {
     function createElement(name) {
         return document.createElement(name);
     }
-
-    
 
     function createText(data) {
         return document.createTextNode(data);
@@ -238,17 +259,17 @@ Pippin.Laugh = (function () {
             }
         }
     }
-
+    
     var template = (function () {
         var template = {
             data() {
                 return {
                     defaultStyle: {
-                        height: "50vh",
+                        height: Pippin.isMobile() ? "100%" : "50vh",
                         width: "70%",
                         coverBackgroundColor: "rgba(0,0,0,.4)",
                         backgroundColor: "#222",
-                        borderRadius: "6px",
+                        borderRadius: Pippin.isMobile() ? "6px" : "0px",
                     },
                     style: null,
 
@@ -351,28 +372,19 @@ Pippin.Laugh = (function () {
     let addedCss = false;
 
     function addCss() {
-		let win = window,
-        doc = document,
-        docElem = doc.documentElement,
-        body = doc.getElementsByTagName("body")[0],
-        x = win.innerWidth || docElem.clientWidth || body.clientWidth,
-        y = win.innerHeight || docElem.clientHeight || body.clientHeight;
         var style = createElement("style");
-		let isMobile =  x <= 420;
-		if (isMobile){
-			style.textContent =
-                "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n   height:100% !important; \n position: fixed;\n    z-index: 4;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: " +
+        if (Pippin.isMobile()) {
+            style.textContent =
+                "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container { \n position: fixed;\n    z-index: 4;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    width: " +
                 "100%" +
-                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n  height:100% !important;\n  -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 0em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
-		} else {
-			 
-			style.textContent =
+                ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n  -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    right: 50%;\n    bottom: 0;\n    -webkit-transform: translateX(50%);\n            transform: translateX(50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 0em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
+        } else {
+            style.textContent =
                 "\n  [svelte-2241516264].cover, [svelte-2241516264] .cover {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: -1;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    opacity: 0;\n  }\n\n  [svelte-2241516264].container, [svelte-2241516264] .container {\n    position: fixed;\n    z-index: 4;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n      border-radius: 6px;\n      transform: translate(-50%, -50%);\n    width: " +
                 "420px" +
                 ";\n    \n    overflow: hidden;\n    -webkit-transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .6s cubic-bezier(0.86, 0, 0.07, 1);\n  }\n\n  [svelte-2241516264].box, [svelte-2241516264] .box {\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    -webkit-transition-property: height;\n    transition-property: height;\n  }\n\n  [svelte-2241516264].contents, [svelte-2241516264] .contents {\n    padding: 0em;\n    box-sizing: border-box;\n    -webkit-transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    transition: .4s cubic-bezier(0.86, 0, 0.07, 1);\n    overflow: auto;\n    height: 100%;\n  }\n\n  [svelte-2241516264].decorate, [svelte-2241516264] .decorate {\n    position: absolute;\n    height: 1em;\n    width: 1em;\n  }\n  [svelte-2241516264].decorate.left-bottom, [svelte-2241516264] .decorate.left-bottom {\n    left: -.72em;\n    bottom: 0;\n  }\n  [svelte-2241516264].decorate.right-bottom, [svelte-2241516264] .decorate.right-bottom {\n    right: -.72em;\n    bottom: 0;\n    -webkit-transform: rotateY(180deg);\n            transform: rotateY(180deg);\n  }\n";
-		
-		}
-        
+        }
+
         appendNode(style, document.head);
 
         addedCss = true;
@@ -493,8 +505,6 @@ Pippin.Laugh = (function () {
 
         appendNode(div2, div1);
 
-        
-
         var div3 = createElement("div");
         setAttribute(div3, "svelte-2241516264", "");
         component.refs.contents = div3;
@@ -503,7 +513,6 @@ Pippin.Laugh = (function () {
             "\n        opacity: " + (root.__active ? 1 : 0) + ";\n      ";
 
         appendNode(div3, div2);
-        
 
         return {
             mount: function (target, anchor) {
@@ -566,14 +575,10 @@ Pippin.Laugh = (function () {
                     root.style.borderRadius +
                     ";\n    ";
 
-                
-
                 div3.style.cssText =
                     "\n        opacity: " +
                     (root.__active ? 1 : 0) +
                     ";\n      ";
-
-                
             },
 
             teardown: function (detach) {
@@ -655,3 +660,161 @@ Pippin.Laugh = (function () {
 
     return Pippin$1;
 })();
+
+Pippin.addSwipeEvent = function (theDom, eventName, handleEvent) {
+    // console.log(theDom, eventName, handleEvent);
+    var eStart = 0,
+        eEnd = 0;
+
+    theDom.addEventListener(
+        "touchstart",
+        function (e) {
+            switch (eventName) {
+                case "swipeDown" | "swipeUp":
+                    eStart = e.targetTouches[0].clientY;
+                    break;
+                case "swipeLeft" | "swipeRight":
+                    eStart = e.targetTouches[0].clientX;
+                    break;
+                default:
+                    eStart = e.targetTouches[0].clientY;
+                    break;
+            }
+        },
+        false
+    );
+
+    theDom.addEventListener(
+        "mousedown",
+        function (e) {
+            switch (eventName) {
+                case "swipeDown" | "swipeUp":
+                    eStart = e.clientY;
+                    break;
+                case "swipeLeft" | "swipeRight":
+                    eStart = e.clientX;
+                    break;
+                default:
+                    eStart = e.clientY;
+                    break;
+            }
+        },
+        false
+    );
+
+    theDom.addEventListener(
+        "touchmove",
+        function (e) {
+            e.preventDefault();
+        },
+        false
+    );
+
+    theDom.addEventListener(
+        "mousemove",
+        function (e) {
+            e.preventDefault();
+        },
+        false
+    );
+
+    theDom.addEventListener(
+        "touchend",
+        function (e) {
+            switch (eventName) {
+                case "swipeDown" | "swipeUp":
+                    eEnd = e.changedTouches[0].clientY;
+                    break;
+                case "swipeLeft" | "swipeRight":
+                    eEnd = e.changedTouches[0].clientX;
+                    break;
+                default:
+                    eEnd = e.changedTouches[0].clientY;
+                    break;
+            }
+
+            var moveVal = eEnd - eStart;
+            var moveAbsVal = Math.abs(moveVal);
+
+            // swipeUp
+            if (moveVal < 0 && moveAbsVal > 30 && eventName == "swipeUp") {
+                // console.log("swipeUp");
+                handleEvent();
+            }
+
+            // swipeDown
+            if (moveVal > 0 && moveAbsVal > 30 && eventName == "swipeDown") {
+                // console.log("swipeDown");
+                handleEvent();
+            }
+
+            // swipeLeft
+            if (moveVal < 0 && moveAbsVal > 30 && eventName == "swipeLeft") {
+                // console.log("swipeLeft");
+                handleEvent();
+            }
+
+            // swipeRight
+            if (moveVal > 0 && moveAbsVal > 30 && eventName == "swipeRight") {
+                // console.log("swipeRight");
+                handleEvent();
+            }
+        },
+        false
+    );
+
+    theDom.addEventListener(
+        "mouseup",
+        function (e) {
+            switch (eventName) {
+                case "swipeDown" | "swipeUp":
+                    eEnd = e.clientY;
+                    break;
+                case "swipeLeft" | "swipeRight":
+                    eEnd = e.clientX;
+                    break;
+                default:
+                    eEnd = e.clientY;
+                    break;
+            }
+
+            var moveVal = eEnd - eStart;
+            var moveAbsVal = Math.abs(moveVal);
+
+            // swipeUp
+            if (moveVal < 0 && moveAbsVal > 30 && eventName == "swipeUp") {
+                // console.log("swipeUp");
+                handleEvent();
+            }
+
+            // swipeDown
+            if (moveVal > 0 && moveAbsVal > 30 && eventName == "swipeDown") {
+                // console.log("swipeDown");
+                handleEvent();
+            }
+
+            // swipeLeft
+            if (moveVal < 0 && moveAbsVal > 30 && eventName == "swipeLeft") {
+                // console.log("swipeLeft");
+                handleEvent();
+            }
+
+            // swipeRight
+            if (moveVal > 0 && moveAbsVal > 30 && eventName == "swipeRight") {
+                // console.log("swipeRight");
+                handleEvent();
+            }
+        },
+        false
+    );
+};
+
+Pippin.isMobile = function() {
+    let win = window,
+        doc = document,
+        docElem = doc.documentElement,
+        body = doc.getElementsByTagName("body")[0],
+        x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+        y = win.innerHeight || docElem.clientHeight || body.clientHeight;
+    return x <= 420;
+}
