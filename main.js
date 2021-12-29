@@ -15,7 +15,12 @@ const failureCallback = function (data) {
 let orderToken = "";
 let env = "production"; //or production
 // var rates = document.getElementsByName('radio');
-
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+if (params.order_token) {
+	orderToken = params.order_token;
+	document.getElementById("order_token").value = orderToken;
+}
 document.getElementById("pippin-sample").addEventListener("click", () => {
     orderToken = document.getElementById("order_token").value.trim();
     if (orderToken == "") {
