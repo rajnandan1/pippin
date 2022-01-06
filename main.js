@@ -13,7 +13,7 @@ const failureCallback = function (data) {
         "</pre>";
 };
 let orderToken = "";
-let env = "production"; //or production
+let env = document.getElementById("pippinEnv").value; //or production
 // var rates = document.getElementsByName('radio');
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
