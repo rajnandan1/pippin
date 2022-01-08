@@ -137,6 +137,7 @@ const Pippin = async function (env, token, successcb, failurecb) {
         document.getElementById(this.this_ID_IN),
         dropinConfig
     );
+	Pippin.isMobile() ? document.getElementById("dropin_frame").style.height = "calc(100% - 20px)" : "";
 };
 Pippin.Laugh = (function () {
     "use strict";
