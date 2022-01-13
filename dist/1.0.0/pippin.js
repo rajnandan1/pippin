@@ -1,5 +1,8 @@
 
-const Pippin = async function (env, token, successcb, failurecb) {
+const Pippin = async function (env, token, successcb, failurecb, dcb) {
+	if(dcb){
+		Pippin.dismissCallback = dcb
+	}
     this.uuid = function () {
         var dt = new Date().getTime();
         var uuid = "x4xxxyxxx".replace(/[xy]/g, function (c) {
@@ -48,12 +51,12 @@ const Pippin = async function (env, token, successcb, failurecb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.12/dropinClient.prod.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.prod.js?v=" +
                 Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.12/dropinClient.sandbox.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.sandbox.js?v=" +
                 Date.now()
         );
     }
@@ -323,6 +326,8 @@ Pippin.Laugh = (function () {
                             this.set({
                                 __tid: null,
                             });
+							Pippin.dismissCallback();
+							
                         }, 500),
                     });
                 },
@@ -822,3 +827,4 @@ Pippin.isMobile = function() {
         y = win.innerHeight || docElem.clientHeight || body.clientHeight;
     return x <= 420;
 }
+Pippin.dismissCallback = function(){}

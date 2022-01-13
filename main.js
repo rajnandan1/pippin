@@ -12,6 +12,10 @@ const failureCallback = function (data) {
         JSON.stringify(data, null, 2) +
         "</pre>";
 };
+const dismissCallback = function () {
+    document.getElementById("response").innerHTML =
+        "<pre><b>Pippin Closed</b><br>" + "</pre>";
+};
 let orderToken = "";
 let env = document.getElementById("pippinEnv").value; //or production
 // var rates = document.getElementsByName('radio');
@@ -28,5 +32,5 @@ document.getElementById("pippin-sample").addEventListener("click", () => {
         return;
     }
 
-    Pippin(env, orderToken, successCallback, failureCallback);
+    Pippin(env, orderToken, successCallback, failureCallback, dismissCallback);
 });
