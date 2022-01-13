@@ -45,7 +45,11 @@ const  successCallback  =  function (data) {
 const  failureCallback  =  function (data) {
 	console.log(data);
 }
-Pippin(env, orderToken, successCallback, failureCallback);
+//Create Dismiss Callback
+const  failureCallback  =  function () {
+	console.log("User closed pippin");
+}
+Pippin(env, orderToken, successCallback, failureCallback, dismissCallback);
 ```
 ### Sample Failure Response
 ```
