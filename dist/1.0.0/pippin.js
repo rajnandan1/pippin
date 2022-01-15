@@ -136,7 +136,8 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
         backgroundColor: "#fff",
     });
     modalx.open(this.this_ID_IN);
-    Cashfree.initialiseDropin(
+	let cashfree = new Cashfree();
+    cashfree.initialiseDropin(
         document.getElementById(this.this_ID_IN),
         dropinConfig
     );
