@@ -12,24 +12,14 @@
 ### Include script
 ```
 <script>
-    "use strict";
-    !function () {
-      if (!window.Pippin) {
-         var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://sdk.cashfree.com/js/pippin/1.0.0/pippin.min.js?v=" + n;
-            var i = document.getElementsByTagName("script")[0];
-            i.parentNode.insertBefore(o, i);
-      }
-    }();
+    "use strict";!function(){var e,t;window.Pippin||(t=3e5*Math.ceil(new Date/3e5),(e=document.createElement("script")).type="text/javascript",e.async=!0,e.crossorigin="anonymous",e.src="https://sdk.cashfree.com/js/pippin/1.0.1/pippin.min.js?v="+t,(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t))}();
 </script>
 ```
 
 or
 ### use the below script inside a `<script>` tag
 ```
-<script>
-"use strict";!function(){var e,t;window.Pippin||(t=3e5*Math.ceil(new Date/3e5),(e=document.createElement("script")).type="text/javascript",e.async=!0,e.crossorigin="anonymous",e.src="https://sdk.cashfree.com/js/pippin/1.0.0/pippin.min.js?v="+t,(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t))}();
-</script>
+<script src="https://sdk.cashfree.com/js/pippin/1.0.1/pippin.min.js"></script>
 ```	
 ### Accept Payment
 ```
@@ -46,7 +36,7 @@ const  failureCallback  =  function (data) {
 	console.log(data);
 }
 //Create Dismiss Callback
-const  failureCallback  =  function () {
+const  dismissCallback  =  function () {
 	console.log("User closed pippin");
 }
 Pippin(env, orderToken, successCallback, failureCallback, dismissCallback);
