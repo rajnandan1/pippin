@@ -127,9 +127,6 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
             modalx.close();
             this.failurecb(data);
         },
-		style:{
-			backgroundColor: "#fff"
-		}
     };
 
     modalx.setStyle({
