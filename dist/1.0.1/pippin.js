@@ -1,8 +1,7 @@
-
 const Pippin = async function (env, token, successcb, failurecb, dcb) {
-	if(dcb){
-		Pippin.dismissCallback = dcb
-	}
+    if (dcb) {
+        Pippin.dismissCallback = dcb;
+    }
     this.uuid = function () {
         var dt = new Date().getTime();
         var uuid = "x4xxxyxxx".replace(/[xy]/g, function (c) {
@@ -51,12 +50,12 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.prod.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.20/dropinClient.prod.js?v=" +
                 Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.sandbox.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.20/dropinClient.sandbox.js?v=" +
                 Date.now()
         );
     }
@@ -76,20 +75,19 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
     modal.setAttribute("id", this.this_ID_IN);
     modal.style.height = "100%";
 
-	if (Pippin.isMobile()){
-		let closeBar = document.createElement("div");
+    if (Pippin.isMobile()) {
+        let closeBar = document.createElement("div");
         closeBar.classList.add("close-bar");
         closeBar.innerHTML =
             "<div style='height:5px; width:40%;display:inline-block;background-color:#D1D9D9;position: absolute;top: 8px; left: 50%; transform: translateX(-50%); border-radius: 5px;'></div>";
         closeBar.style.height = "20px";
         closeBar.setAttribute("id", "close-bar" + this.this_ID_IN);
         modal.append(closeBar);
-	}
-    
+    }
 
     content.append(modal);
     theDiv.appendChild(content);
-	if (document.getElementById("close-bar" + this.this_ID_IN)) {
+    if (document.getElementById("close-bar" + this.this_ID_IN)) {
         Pippin.addSwipeEvent(
             document.getElementById("close-bar" + this.this_ID_IN),
             "swipeDown",
@@ -98,7 +96,7 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
             }
         );
     }
-	
+
     const modalx = new Pippin.Laugh({
         target: content,
         data: {
@@ -127,21 +125,24 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
             modalx.close();
             this.failurecb(data);
         },
-		style:{
-			backgroundColor: "#fff"
-		}
+        style: {
+            backgroundColor: "#fff",
+        },
     };
 
     modalx.setStyle({
         backgroundColor: "#fff",
     });
     modalx.open(this.this_ID_IN);
-	let cashfree_var = new Cashfree();
+    let cashfree_var = new Cashfree();
     cashfree_var.initialiseDropin(
         document.getElementById(this.this_ID_IN),
         dropinConfig
     );
-	Pippin.isMobile() ? document.getElementById("dropin_frame").style.height = "calc(100% - 20px)" : "";
+    Pippin.isMobile()
+        ? (document.getElementById("dropin_frame").style.height =
+              "calc(100% - 20px)")
+        : "";
 };
 Pippin.Laugh = (function () {
     "use strict";
@@ -267,7 +268,7 @@ Pippin.Laugh = (function () {
             }
         }
     }
-    
+
     var template = (function () {
         var template = {
             data() {
@@ -327,8 +328,7 @@ Pippin.Laugh = (function () {
                             this.set({
                                 __tid: null,
                             });
-							Pippin.dismissCallback();
-							
+                            Pippin.dismissCallback();
                         }, 500),
                     });
                 },
@@ -819,7 +819,7 @@ Pippin.addSwipeEvent = function (theDom, eventName, handleEvent) {
     );
 };
 
-Pippin.isMobile = function() {
+Pippin.isMobile = function () {
     let win = window,
         doc = document,
         docElem = doc.documentElement,
@@ -827,7 +827,7 @@ Pippin.isMobile = function() {
         x = win.innerWidth || docElem.clientWidth || body.clientWidth,
         y = win.innerHeight || docElem.clientHeight || body.clientHeight;
     return x <= 420;
-}
-Pippin.dismissCallback = function(){
-	return true;
-}
+};
+Pippin.dismissCallback = function () {
+    return true;
+};
