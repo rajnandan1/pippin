@@ -51,12 +51,12 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.prod.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.20/dropinClient.prod.js?v=" +
                 Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.19/dropinClient.sandbox.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.20/dropinClient.sandbox.js?v=" +
                 Date.now()
         );
     }
