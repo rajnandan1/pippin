@@ -13,8 +13,7 @@ const failureCallback = function (data) {
         "</pre>";
 };
 const dismissCallback = function () {
-    document.getElementById("response").innerHTML =
-        "<pre><b>Pippin Closed</b><br>" + "</pre>";
+   console.log("Pippin Closed");
 };
 let orderToken = "";
 let env = document.getElementById("pippinEnv").value; //or production
