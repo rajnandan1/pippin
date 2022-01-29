@@ -264,13 +264,20 @@ Pippin.Laugh = (function () {
             }
         }
     }
-    
+    var desktopHeight = function(){
+		let viewPortHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		if(viewPortHeight < 550){
+			return viewPortHeight;
+		} else {
+			return 550
+		}
+	}
     var template = (function () {
         var template = {
             data() {
                 return {
                     defaultStyle: {
-                        height: Pippin.isMobile() ? "100%" : "50vh",
+                        height: Pippin.isMobile() ? "100%" : (String(desktopHeight()) + "px") ,
                         width: "70%",
                         coverBackgroundColor: "rgba(0,0,0,.4)",
                         backgroundColor: "#222",
