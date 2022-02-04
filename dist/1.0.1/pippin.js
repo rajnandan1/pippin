@@ -265,11 +265,12 @@ Pippin.Laugh = (function () {
     }
     var desktopHeight = function(){
 		let viewPortHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-		if(viewPortHeight < 550){
-			return viewPortHeight;
-		} else {
-			return 550
-		}
+		let minHeight = 705;
+		if (viewPortHeight < minHeight) {
+            return viewPortHeight;
+        } else {
+            return minHeight;
+        }
 	}
     var template = (function () {
         var template = {
