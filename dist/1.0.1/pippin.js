@@ -113,8 +113,7 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
         components: [
             "order-details",
             "card",
-            "upi-collect",
-            "upi-intent",
+            "upi",
             "app",
             "netbanking",
         ],
