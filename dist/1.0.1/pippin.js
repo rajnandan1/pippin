@@ -51,12 +51,12 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
     let preent = "old";
     if (env == "production") {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.25/dropinClient.prod.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.26/dropinClient.prod.js?v=" +
                 Date.now()
         );
     } else {
         preent = await this.replaceJS(
-            "https://sdk.cashfree.com/js/ui/1.0.25/dropinClient.sandbox.js?v=" +
+            "https://sdk.cashfree.com/js/ui/1.0.26/dropinClient.sandbox.js?v=" +
                 Date.now()
         );
     }
@@ -110,13 +110,7 @@ const Pippin = async function (env, token, successcb, failurecb, dcb) {
         },
     });
     const dropinConfig = {
-        components: [
-            "order-details",
-            "card",
-            "upi",
-            "app",
-            "netbanking",
-        ],
+        components: ["order-details", "upi", "card", "app", "netbanking"],
         orderToken: token,
         onSuccess: (data) => {
             modalx.close();
