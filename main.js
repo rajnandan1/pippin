@@ -15,21 +15,21 @@ const failureCallback = function (data) {
 const dismissCallback = function () {
    console.log("Pippin Closed");
 };
-let orderToken = "";
+let sessionID = "";
 let env = document.getElementById("pippinEnv").value; //or production
 // var rates = document.getElementsByName('radio');
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
-if (params.order_token) {
-	orderToken = params.order_token;
-	document.getElementById("order_token").value = orderToken;
+if (params.session_id) {
+	sessionID = params.session_id;
+	document.getElementById("session_id").value = sessionID;
 }
 document.getElementById("pippin-sample").addEventListener("click", () => {
-    orderToken = document.getElementById("order_token").value.trim();
-    if (orderToken == "") {
-        alert("Order token empty");
+    sessionID = document.getElementById("session_id").value.trim();
+    if (sessionID == "") {
+        alert("Session ID empty");
         return;
     }
 
-    Pippin(env, orderToken, successCallback, failureCallback, dismissCallback);
+    Pippin(env, sessionID, successCallback, failureCallback, dismissCallback);
 });

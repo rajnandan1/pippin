@@ -3,7 +3,7 @@
 - Simple wrapper over Cashfree's javascript sdk
 
 ## Prerequisite 
-- `order_token` 
+- `session_id` 
 - A success handler
 - A failure handler
 
@@ -12,19 +12,19 @@
 ### Include script
 ```
 <script>
-    "use strict";!function(){var e,t;window.Pippin||(t=3e5*Math.ceil(new Date/3e5),(e=document.createElement("script")).type="text/javascript",e.async=!0,e.crossorigin="anonymous",e.src="https://sdk.cashfree.com/js/pippin/1.0.1/pippin.min.js?v="+t,(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t))}();
+    "use strict";!function(){var e,t;window.Pippin||(t=3e5*Math.ceil(new Date/3e5),(e=document.createElement("script")).type="text/javascript",e.async=!0,e.crossorigin="anonymous",e.src="https://sdk.cashfree.com/js/pippin/2.0.0/pippin.min.js?v="+t,(t=document.getElementsByTagName("script")[0]).parentNode.insertBefore(e,t))}();
 </script>
 ```
 
 or
 ### use the below script inside a `<script>` tag
 ```
-<script src="https://sdk.cashfree.com/js/pippin/1.0.1/pippin.min.js"></script>
+<script src="https://sdk.cashfree.com/js/pippin/2.0.0/pippin.min.js"></script>
 ```	
 ### Accept Payment
 ```
 //Set token
-const  orderToken  =  "gbJgZ5ydScqlyhUmZNmZ";
+const  sessionId  =  "your-session-id";
 //Set env
 const  env  =  "sandbox"; //or production
 //Create Success Callback
@@ -39,7 +39,7 @@ const  failureCallback  =  function (data) {
 const  dismissCallback  =  function () {
 	console.log("User closed pippin");
 }
-Pippin(env, orderToken, successCallback, failureCallback, dismissCallback);
+Pippin(env, sessionId, successCallback, failureCallback, dismissCallback);
 ```
 ### Sample Failure Response
 ```
