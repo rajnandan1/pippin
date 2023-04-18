@@ -35,7 +35,7 @@
 			</a>
 		</div>
 		<div class="form-group  mt-4 mb-4 ">
-			<input  class="form-control form-control-lg" type="text" id="order_token" name="" placeholder="order_token">
+			<input  class="form-control form-control-lg" type="text" id="session_id" name="" placeholder="Session ID">
 			<input  class="form-control form-control-lg" type="hidden" id="pippinEnv" value="sandbox">
 		</div>
 		<button class="button-36" id="pippin-sample" role="button">Pay for second breakfast</button>
@@ -47,7 +47,7 @@
     !function () {
       if (!window.Pippin) {
          var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "dist/1.0.0/pippin.js?v=" + n;
+            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "dist/2.0.0/pippin.js?v=" + n;
             var i = document.getElementsByTagName("script")[0];
             i.parentNode.insertBefore(o, i);
       }
